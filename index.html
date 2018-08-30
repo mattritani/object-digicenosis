@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<script src="js/three.js"></script>
+		<script src="js/loaders/OBJLoader.js"></script>
 		<script>
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -19,7 +20,42 @@
 			document.body.appendChild( renderer.domElement );
 
 
+
+
 			/* Geometry*/
+
+     	var loader = new THREE.OBJLoader();
+			 loader.load(
+                // resource URL
+                'models/test-1.obj',
+                // called when resource is loaded
+                function(testObject) {
+
+										scene.add(testObject);
+
+
+										testObject.scale.x = 0.3;
+                    testObject.scale.y = 0.3;
+                    testObject.scale.z = 0.3;
+
+
+                    testObject.position.x = -3;
+                    testObject.position.y = -20;
+                    testObject.position.z = -20;
+
+								})
+
+
+// testObject.scale.x = 0.3;
+//                     testObject.scale.y = 0.3;
+//                     testObject.scale.z = 0.3;
+
+
+//                     testObject.position.x = -3;
+//                     testObject.position.y = -20;
+//                     testObject.position.z = -20;
+
+
 
 			var geometry = new THREE.TorusGeometry( 14, 0.5, 50, 40);
 			var material = new THREE.MeshBasicMaterial( { color: 0xC0C0C0 } );
