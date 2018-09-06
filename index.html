@@ -7,11 +7,14 @@
         margin: 0;
       }
       canvas {
-        width: 90%;
-        height: 90% }
+        width: 50%;
+        height: 50% }
     </style>
   </head>
   <body>
+
+      <canvas id="myCanvas" width="578" height="70"></canvas>
+
     <script src="js/three.js">
     </script>
     <script src="js/loaders/OBJLoader.js">
@@ -28,7 +31,32 @@
       renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 			
-
+      /* Mouse position*/
+      
+      function writeMessage(canvas, message) {
+            var context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.font = '18pt Calibri';
+            context.fillStyle = 'black';
+            context.fillText(message, 10, 25);
+          }
+          function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+              x: evt.clientX - rect.left,
+              y: evt.clientY - rect.top
+            };
+          }
+          var canvas = document.getElementById('myCanvas');
+          var context = canvas.getContext('2d');
+    
+          canvas.addEventListener('mousemove', function(evt) {
+            var mousePos = getMousePos(canvas, evt);
+            var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+            writeMessage(canvas, message);
+          }, false);
+    
+    // logMouseMove();
 
 			/* Lights*/
 
@@ -66,6 +94,16 @@
 					testObject.position.z = -20;
 
 					testObject.rotation.x = -0.5;
+
+
+           var animate = function () {
+        requestAnimationFrame( animate );
+        testObject.rotation.x += 0.0002;
+        testObject.rotation.y += 0.0004;
+				testObject.rotation.z += 0.0004;
+        
+      };
+      animate();
 					
         }
       )
@@ -89,6 +127,15 @@
         golo.rotation.x = 2.4;
         golo.rotation.y = 0.5;
         golo.rotation.z = 1.3;
+
+        var animate = function () {
+        requestAnimationFrame( animate );
+        golo.rotation.x += 0.0002;
+        golo.rotation.y += 0.0004;
+				golo.rotation.z += 0.0004;
+        
+      };
+      animate();
       
       }
     )
